@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MoviesContainer from './Containers/MoviesContainer';
+import { JumbotronContainer } from './containers/jumbotron';
+import { FooterContainer } from './containers/footer';
 
 function App() {
   return (
-    <div className='App'>
-      <MoviesContainer />
-    </div>
+    <>
+      <JumbotronContainer />
+      <FooterContainer />
+    </>
   );
 }
 
