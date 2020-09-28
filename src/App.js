@@ -1,6 +1,6 @@
 import React from 'react';
-import { JumbotronContainer } from './containers/jumbotron';
-import { FooterContainer } from './containers/footer';
+import { JumbotronContainer } from './Containers/jumbotron';
+import { FooterContainer } from './Containers/footer';
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import 'normalize.css';
-import App from './app';
+import App from './App';
 import { GlobalStyles } from './global-styles';
 
 ReactDOM.render(
@@ -11,4 +11,3 @@ ReactDOM.render(
   </>,
   document.getElementById('root')
 );
-
