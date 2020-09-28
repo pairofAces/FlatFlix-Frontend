@@ -35,10 +35,18 @@ export default function Signin() {
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
+            <div>
             <Form.Submit disabled={isInvalid} type="submit">
               Sign In
             </Form.Submit>
+            </div>
           </Form.Base>
+          <Form.Text>
+            New to FlatFlix? <Form.Link to="/signup">Sign up now.</Form.Link>
+          </Form.Text>
+          <Form.TextSmall>
+            This page is protected by Doodle reCAPTCHA to ensure you are not a robot. Learn more.
+          </Form.TextSmall>
         </Form>
       </HeaderContainer>
       <FooterContainer />
