@@ -12,11 +12,11 @@ export function FooterContainer() {
           <Footer.Link href='#'>Investor Relations</Footer.Link>
           <Footer.Link href='#'>Ways to Watch</Footer.Link>
           <Footer.Link href='#'>Corporate Information</Footer.Link>
-          <Footer.Link href='#'>Netflix Originals</Footer.Link>
+          <Footer.Link href='#'>Flatflix Originals</Footer.Link>
         </Footer.Column>
 
         <Footer.Column>
-          <Footer.Link href='#'>Help Centre</Footer.Link>
+          <Footer.Link href='#'>Help Center</Footer.Link>
           <Footer.Link href='#'>Jobs</Footer.Link>
           <Footer.Link href='#'>Terms of Use</Footer.Link>
           <Footer.Link href='#'>Contact Us</Footer.Link>
@@ -30,13 +30,14 @@ export function FooterContainer() {
         </Footer.Column>
 
         <Footer.Column>
-          <Footer.Link href='#'>Media Centre</Footer.Link>
+          <Footer.Link href='#'>Media Center</Footer.Link>
           <Footer.Link href='#'>Buy Gift Cards</Footer.Link>
           <Footer.Link href='#'>Cookie Preferences</Footer.Link>
           <Footer.Link href='#'>Legal Notices</Footer.Link>
         </Footer.Column>
+        <Footer.Break />
+        <Footer.Text>Flatflix United States</Footer.Text>
       </Footer.Row>
-      <Footer.Text>Flatflix</Footer.Text>
     </Footer>
   );
 }
