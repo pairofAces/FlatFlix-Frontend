@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
 import { Form } from '../components';
-import * as ROUTES from '../constants/routes';
-import baseUrl from '../helpers/routes';
 
 export default function SignIn(props) {
-  const history = useHistory();
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const isInvalid = password === '' || emailAddress === ``;
 
-  const handleSignIn = (e) => {
+  const submitHandler = (e) => {
     let user = { email: emailAddress, password: password };
     e.preventDefault();
-    props.submitHandler(user);
+    props.signInHandler(user);
   };
 
   return (
@@ -26,7 +22,7 @@ export default function SignIn(props) {
         <Form>
           <Form.Title>Sign In</Form.Title>
           {error && <Form.Error>{error}</Form.Error>}
-          <Form.Base onSubmit={handleSignIn} method='POST'>
+          <Form.Base onSubmit={submitHandler} method='POST'>
             <Form.Input
               placeholder='Email Address'
               value={emailAddress}
