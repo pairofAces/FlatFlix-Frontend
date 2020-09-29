@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
-import { Footer, Form } from '../components';
+import { Form } from '../components';
 import * as ROUTES from '../constants/routes';
 import baseUrl from '../helpers/routes';
 
-export default function Signup() {
+export default function SignUp() {
   const history = useHistory();
 
   const [firstName, setFirstName] = useState('');

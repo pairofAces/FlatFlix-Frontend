@@ -6,41 +6,18 @@ import { Form } from '../components';
 import * as ROUTES from '../constants/routes';
 import baseUrl from '../helpers/routes';
 
-export default function Signin() {
+export default function SignIn(props) {
   const history = useHistory();
-  const [emailAddress, setEmailAddress] = useState();
-  const [password, setPassword] = useState();
+  const [emailAddress, setEmailAddress] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const isInvalid = password === '' || emailAddress === ``;
 
   const handleSignIn = (e) => {
+    let user = { email: emailAddress, password: password };
     e.preventDefault();
-
-    fetch(baseUrl.signIn, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        user: {
-          email: emailAddress,
-          password: password,
-        },
-      }),
-    })
-      .then((resp) => resp.json())
-      // .then(data => )
-      .then(console.log)
-      .then(() => {
-        history.push(ROUTES.BROWSE);
-      })
-      .catch((error) => {
-        setEmailAddress('');
-        setPassword('');
-        setError(error.message);
-      });
+    props.submitHandler(user);
   };
 
   return (
