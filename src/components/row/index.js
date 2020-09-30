@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/row.css';
 
-function Row({ title, fetchUrl }) {
+function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,12 @@ function Row({ title, fetchUrl }) {
 
       <div className='row_posters'>
         {movies.map((movie) => (
-          <img className='row_poster' src={movie.poster} alt={movie.title} />
+          <img
+            key={movie.id}
+            className={`row_poster ${isLargeRow && 'row_posterLarge'}`}
+            src={isLargeRow ? movie.poster : movie.background}
+            alt={movie.title}
+          />
         ))}
       </div>
     </div>
