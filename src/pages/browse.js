@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from '../components/navbar';
 import '../browse.css';
 import Row from '../components/row';
 import Banner from '../components/banner';
 import request from '../helpers/routes';
+
 
 // export default function Browse() {
 //   return <p>Hello from the browse page!</p>;
@@ -24,6 +26,7 @@ export default class Browse extends React.Component {
   render() {
     return (
       <>
+        <Navbar/>
         <Banner />
         <Row title='Popular' fetchUrl={request.Popular} isLargeRow />
         <Row title='Comedy' fetchUrl={request.Comedy} />
