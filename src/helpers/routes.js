@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 
 const routes = {
   getMovies: 'http://localhost:3000/api/v1/movies/',
+  Comedy: 'http://localhost:3000/api/v1/movies/genres/comedy',
+  Drama: 'http://localhost:3000/api/v1/movies/genres/drama',
   signUp: 'http://localhost:3000/api/v1/users/',
   signIn: 'http://localhost:3000/api/v1/login/',
   profile: 'http://localhost:3000/api/v1/profile',
