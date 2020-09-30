@@ -5,6 +5,7 @@ const routes = {
   getMovies: 'http://localhost:3000/api/v1/movies/',
   signUp: 'http://localhost:3000/api/v1/users/',
   signIn: 'http://localhost:3000/api/v1/login/',
+  profile: 'http://localhost:3000/api/v1/profile',
 };
 
 export function IsUserRedirect({ user, loggedInPath, children, ...restProps }) {

@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
 import { Form } from '../components';
-import * as ROUTES from '../constants/routes';
-import baseUrl from '../helpers/routes';
 
-export default function SignUp() {
-  const history = useHistory();
-
+export default function SignUp(props) {
   const [firstName, setFirstName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
@@ -16,34 +11,10 @@ export default function SignUp() {
 
   const isInvalid = firstName === '' || password === '' || emailAddress === '';
 
-  const handleSignUp = (e) => {
+  const submitHandler = (e) => {
+    let user = { email: emailAddress, password: password };
     e.preventDefault();
-
-    fetch(baseUrl.signUp, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        user: {
-          name: firstName,
-          email: emailAddress,
-          password: password,
-        },
-      }),
-    })
-      .then((resp) => resp.json())
-      // .then(data => )
-      .then(() => {
-        history.push(ROUTES.BROWSE);
-      })
-      .catch((error) => {
-        setFirstName('');
-        setEmailAddress('');
-        setPassword('');
-        setError(error.message);
-      });
+    props.signUpHandler(user);
   };
 
   return (
@@ -53,7 +24,7 @@ export default function SignUp() {
           <Form.Title>Sign Up</Form.Title>
           {error && <Form.Error>{error}</Form.Error>}
 
-          <Form.Base onSubmit={handleSignUp} method='POST'>
+          <Form.Base onSubmit={submitHandler} method='POST'>
             <Form.Input
               placeholder='First Name'
               value={firstName}
