@@ -30,8 +30,8 @@ export const Container = styled.div`
 `;
 
 export const Logo = styled.img`
-    height: 32px;
-    width: 108px;
+    height: 200px;
+    width: 200px;
     margin-right: 40px;
 
     @media (min-width: 1449px) {

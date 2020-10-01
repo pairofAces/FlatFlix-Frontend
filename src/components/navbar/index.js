@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import logo from './FlatFlix.png';
 import icon from './1.png';
 import './styles/navbar.css'
 
