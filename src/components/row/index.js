@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/row.css';
 import YouTube from 'react-youtube';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function Row({ title, fetchUrl, isLargeRow, user, addFavorite }) {
+function Row({ title, fetchUrl, isLargeRow, addFavorite }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState('');
   const [buttonId, setButtonId] = useState('');
-  const [isShown, setIsShown] = useState(false);
-  const addIcon = <FontAwesomeIcon icon={faPlus} />;
 
   useEffect(() => {
     async function fetchData() {
@@ -41,6 +37,7 @@ function Row({ title, fetchUrl, isLargeRow, user, addFavorite }) {
   const favoriteHandler = (e) => {
     const movieId = e.target.id;
     addFavorite(movieId);
+    setTrailerUrl('');
   };
 
   return (
@@ -66,7 +63,7 @@ function Row({ title, fetchUrl, isLargeRow, user, addFavorite }) {
             id={buttonId}
             onClick={(e) => favoriteHandler(e)}
             className='favorite'>
-            {addIcon} My List
+            + My List
           </button>
           <YouTube videoId={trailerUrl} opts={opts} />
         </div>

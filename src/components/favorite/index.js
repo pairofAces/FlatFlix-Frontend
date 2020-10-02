@@ -33,6 +33,9 @@ class Favorite extends Component {
 
   favoriteHandler = () => {
     this.props.removeFavorite(this.state.favId);
+    this.setState(() => ({
+      trailerUrl: '',
+    }));
   };
 
   render() {
