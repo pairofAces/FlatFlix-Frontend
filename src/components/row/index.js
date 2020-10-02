@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './styles/row.css';
 import YouTube from 'react-youtube';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function Row({ title, fetchUrl, isLargeRow }) {
+function Row({ title, fetchUrl, isLargeRow, user, favoriteUrl }) {
   const [movies, setMovies] = useState([]);
-  const [trailerUrl, setTrailerUrl] = useState("");
+  const [trailerUrl, setTrailerUrl] = useState('');
+  const [buttonId, setButtonId] = useState('');
+  const [isShown, setIsShown] = useState(false);
+  const addIcon = <FontAwesomeIcon icon={faPlus} />;
 
   useEffect(() => {
     async function fetchData() {
@@ -16,29 +21,41 @@ function Row({ title, fetchUrl, isLargeRow }) {
     fetchData();
   }, [fetchUrl]);
 
-  console.log(movies);
-
   const opts = {
-    height: "390",
-    width: "100%",
+    height: '390',
+    width: '100%',
     playerVars: {
       autoplay: 1,
-    }
-  }
+    },
+  };
 
   const handleClick = (movie) => {
     if (trailerUrl) {
       setTrailerUrl('');
     } else {
-      setTrailerUrl(movie.trailer)
+      setTrailerUrl(movie.trailer);
+      setButtonId(movie.id);
     }
-  }
-  // movieTrailer(movie?.name || "")
-  //   .then((url) => {
-  //     const urlParams = new URLSearchParams(new URL(url).search);
-  //     setTrailerUrl(urlParams.get("v"));
-  //   })
-  //   .catch((error) => console.log(error));
+  };
+
+  const addToFavorite = (e) => {
+    const movieId = e.target.id;
+    console.log(movieId);
+    console.log(user.id);
+    fetch(favoriteUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        movie_id: e.target.id,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then(console.log);
+  };
 
   return (
     <div className='row'>
@@ -46,16 +63,34 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
       <div className='row_posters'>
         {movies.map((movie) => (
-          <img
+          <div
             key={movie.id}
-            onClick={() => handleClick(movie)}
-            className={`row_poster ${isLargeRow && 'row_posterLarge'}`}
-            src={isLargeRow ? movie.poster : movie.background}
-            alt={movie.title}
-          />
+            data-img={movie.id}
+            className='content'
+            // onMouseEnter={handleHover}
+            // onMouseLeave={handleHover}
+          >
+            <img
+              onClick={() => handleClick(movie)}
+              id={movie.id}
+              className={`row_poster ${isLargeRow && 'row_posterLarge'}`}
+              src={isLargeRow ? movie.poster : movie.background}
+              alt={movie.title}
+            />
+          </div>
         ))}
       </div>
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts}/>}
+      {trailerUrl && (
+        <div className='trailer-container'>
+          <button
+            id={buttonId}
+            onClick={(e) => addToFavorite(e)}
+            className='favorite'>
+            {addIcon} My List
+          </button>
+          <YouTube videoId={trailerUrl} opts={opts} />
+        </div>
+      )}
     </div>
   );
 }

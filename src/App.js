@@ -104,7 +104,7 @@ class App extends Component {
             <SignUp signUpHandler={this.signUpHandler} />
           </IsUserRedirect>
           <ProtectedRoute user={user} path={ROUTES.BROWSE} exact>
-            <Browse />
+            <Browse user={user} />
           </ProtectedRoute>
           <IsUserRedirect
             user={user}

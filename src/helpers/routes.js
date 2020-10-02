@@ -15,7 +15,8 @@ const routes = {
   Romance: 'http://localhost:3000/api/v1/movies/genres/romance',
   signUp: 'http://localhost:3000/api/v1/users/',
   signIn: 'http://localhost:3000/api/v1/login/',
-  profile: 'http://localhost:3000/api/v1/profile',
+  profile: 'http://localhost:3000/api/v1/profile/',
+  addFavorite: 'http://localhost:3000/api/v1/favorites/',
 };
 
 export function IsUserRedirect({ user, loggedInPath, children, ...restProps }) {
