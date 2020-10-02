@@ -4,7 +4,7 @@ import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function Row({ title, fetchUrl, isLargeRow, user, favoriteUrl }) {
+function Row({ title, fetchUrl, isLargeRow, user, addFavorite }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState('');
   const [buttonId, setButtonId] = useState('');
@@ -38,23 +38,9 @@ function Row({ title, fetchUrl, isLargeRow, user, favoriteUrl }) {
     }
   };
 
-  const addToFavorite = (e) => {
+  const favoriteHandler = (e) => {
     const movieId = e.target.id;
-    console.log(movieId);
-    console.log(user.id);
-    fetch(favoriteUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: user.id,
-        movie_id: e.target.id,
-      }),
-    })
-      .then((resp) => resp.json())
-      .then(console.log);
+    addFavorite(movieId);
   };
 
   return (
@@ -63,13 +49,7 @@ function Row({ title, fetchUrl, isLargeRow, user, favoriteUrl }) {
 
       <div className='row_posters'>
         {movies.map((movie) => (
-          <div
-            key={movie.id}
-            data-img={movie.id}
-            className='content'
-            // onMouseEnter={handleHover}
-            // onMouseLeave={handleHover}
-          >
+          <div key={movie.id} data-img={movie.id} className='content'>
             <img
               onClick={() => handleClick(movie)}
               id={movie.id}
@@ -84,7 +64,7 @@ function Row({ title, fetchUrl, isLargeRow, user, favoriteUrl }) {
         <div className='trailer-container'>
           <button
             id={buttonId}
-            onClick={(e) => addToFavorite(e)}
+            onClick={(e) => favoriteHandler(e)}
             className='favorite'>
             {addIcon} My List
           </button>
