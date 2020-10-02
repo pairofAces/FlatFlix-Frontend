@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './styles/row.css';
 import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function Row({ title, fetchUrl, isLargeRow }) {
+function Row({ title, fetchUrl, isLargeRow, user, favoriteUrl }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState('');
+  const [buttonId, setButtonId] = useState('');
   const [isShown, setIsShown] = useState(false);
   const addIcon = <FontAwesomeIcon icon={faPlus} />;
 
@@ -33,7 +34,27 @@ function Row({ title, fetchUrl, isLargeRow }) {
       setTrailerUrl('');
     } else {
       setTrailerUrl(movie.trailer);
+      setButtonId(movie.id);
     }
+  };
+
+  const addToFavorite = (e) => {
+    const movieId = e.target.id;
+    console.log(movieId);
+    console.log(user.id);
+    fetch(favoriteUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        movie_id: e.target.id,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then(console.log);
   };
 
   return (
@@ -42,12 +63,16 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
       <div className='row_posters'>
         {movies.map((movie) => (
-          <div key={movie.id} className='content'>
-            <div className='favorite'>{addIcon}</div>
+          <div
+            key={movie.id}
+            data-img={movie.id}
+            className='content'
+            // onMouseEnter={handleHover}
+            // onMouseLeave={handleHover}
+          >
             <img
               onClick={() => handleClick(movie)}
-              // onMouseEnter={() => setIsShown(true)}
-              // onMouseLeave={() => setIsShown(false)}
+              id={movie.id}
               className={`row_poster ${isLargeRow && 'row_posterLarge'}`}
               src={isLargeRow ? movie.poster : movie.background}
               alt={movie.title}
@@ -55,7 +80,17 @@ function Row({ title, fetchUrl, isLargeRow }) {
           </div>
         ))}
       </div>
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+      {trailerUrl && (
+        <div className='trailer-container'>
+          <button
+            id={buttonId}
+            onClick={(e) => addToFavorite(e)}
+            className='favorite'>
+            {addIcon} My List
+          </button>
+          <YouTube videoId={trailerUrl} opts={opts} />
+        </div>
+      )}
     </div>
   );
 }

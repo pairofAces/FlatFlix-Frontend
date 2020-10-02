@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './styles/banner.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function Banner() {
+function Banner({ moviesUrl }) {
   const [movie, setMovie] = useState([]);
+  const addIcon = <FontAwesomeIcon icon={faPlus} />;
 
   useEffect(() => {
     async function fetchData() {
-      const request = await fetch('http://localhost:3000/api/v1/movies/')
+      const request = await fetch(moviesUrl)
         .then((resp) => resp.json())
         .then((data) => {
           const random = Math.floor(Math.random() * data.length - 1);
@@ -15,7 +18,7 @@ function Banner() {
       return request;
     }
     fetchData();
-  }, []);
+  }, [moviesUrl]);
 
   console.log(movie);
 
@@ -35,15 +38,15 @@ function Banner() {
         <h1 className='banner_title'>{movie.title}</h1>
         <div className='banner_buttons'>
           <button className='banner_button'>Play</button>
-          <button className='banner_button'>My List</button>
+          <button className='banner_button'>{addIcon} My List</button>
         </div>
 
         <h1 className='banner_description'>
           {truncate(movie.description, 150)}
         </h1>
       </div>
-      
-      <div className="banner_fadeBottom" />
+
+      <div className='banner_fadeBottom' />
     </header>
   );
 }
