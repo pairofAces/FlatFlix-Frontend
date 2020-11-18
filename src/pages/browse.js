@@ -65,13 +65,15 @@ export default class Browse extends React.Component {
       <>
         <Navbar />
         <Banner moviesUrl={request.getMovies} />
-        <Favorite
-          removeFavorite={this.removeFavorite}
-          user={this.props.user}
-          title='My List'
-          favorites={this.state.favorites}
-          isLargeRow
-        />
+        {this.state.favorites.length !== 0 && (
+          <Favorite
+            removeFavorite={this.removeFavorite}
+            user={this.props.user}
+            title='My List'
+            favorites={this.state.favorites}
+            isLargeRow
+          />
+        )}
         <Row
           user={this.props.user}
           addFavorite={this.addFavorite}
